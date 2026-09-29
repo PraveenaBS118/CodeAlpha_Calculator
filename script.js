@@ -1,0 +1,42 @@
+let display = document.getElementById("display");
+function addValue(value) {
+    display.value += value;
+}
+function clearDisplay() {
+    display.value = "";
+}
+function deleteLast() {
+    display.value = display.value.slice(0, -1);
+}
+function calculate() {
+    try {
+        if (display.value === "") {
+            return;
+        }
+        display.value = eval(display.value);
+    } catch {
+        display.value = "Error";
+    }
+}
+document.addEventListener("keydown", function(event) {
+    if (
+        (event.key >= "0" && event.key <= "9") ||
+        event.key === "+" ||
+        event.key === "-" ||
+        event.key === "*" ||
+        event.key === "/" ||
+        event.key === "." ||
+        event.key === "%"
+    ) {
+        addValue(event.key);
+    }
+    if (event.key === "Enter") {
+        calculate();
+    }
+    if (event.key === "Backspace") {
+        deleteLast();
+    }
+    if (event.key === "Escape") {
+        clearDisplay();
+    }
+});
